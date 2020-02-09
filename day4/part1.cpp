@@ -1,12 +1,17 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+
+bool isSixDigitsLong(const uint number)
+{
+    return std::to_string(number).length() == 6;
+}
 
 bool doesDigitsNeverDecrease(const uint number)
 {
     std::string digits(std::to_string(number));
 
-    return digits.length() == 6
-        and digits[0] <= digits[1]
+    return digits[0] <= digits[1]
         and digits[1] <= digits[2]
         and digits[2] <= digits[3]
         and digits[3] <= digits[4]
@@ -17,20 +22,7 @@ bool doesAnyOfAdjacentDigitsAreTheSame(const uint number)
 {
     std::string digits(std::to_string(number));
 
-    if (digits.length() != 6)
-    {
-        return false;
-    }
-
-    for (auto i = 0; i < digits.length() - 1; ++i)
-    {
-        if (digits[i] == digits[i+1])
-        {
-            return true;
-        }
-    }
-
-    return false;
+    return std::adjacent_find(digits.begin(), digits.end()) != digits.end();
 }
 
 int main()
@@ -41,7 +33,9 @@ int main()
 
     for (auto number = lowerBound; number <= upperBound; ++number)
     {
-        if(doesDigitsNeverDecrease(number) and doesAnyOfAdjacentDigitsAreTheSame(number))
+        if (isSixDigitsLong(number) and
+            doesDigitsNeverDecrease(number) and
+            doesAnyOfAdjacentDigitsAreTheSame(number))
         {
             ++numbersThatMeetCriteria;
         }
