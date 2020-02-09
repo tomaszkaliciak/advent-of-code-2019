@@ -17,7 +17,7 @@ bool doesDigitsNeverDecrease(const std::string& digits)
            and digits[4] <= digits[5];
 }
 
-bool doesAnyOfAdjacentDigitsAreTheSame(const std::string& digits)
+bool areAnyOfAdjacentDigitsTheSame(const std::string& digits)
 {
     std::map<char, int> theSameDigitsPairOccurrence;
     for (auto i = 0; i < digits.length() - 1; ++i)
@@ -52,7 +52,7 @@ int main()
         if (std::string digits(std::to_string(number));
                 isSixDigitsLong(digits) and
                 doesDigitsNeverDecrease(digits) and
-                doesAnyOfAdjacentDigitsAreTheSame(digits))
+                areAnyOfAdjacentDigitsTheSame(digits))
         {
             ++numbersThatMeetCriteria;
         }
